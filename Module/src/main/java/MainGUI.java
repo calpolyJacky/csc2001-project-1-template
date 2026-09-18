@@ -151,7 +151,7 @@ public class MainGUI extends JFrame {
         //outputArea.append("\n--------------------\n");
     }
 
-    // search by ID if presesnt, mentor otherwise, display results
+    // search by the first populated field and display the results
     private void searchSession() {
         // Search by ID if the ID field is not empty
         if (!idField.getText().trim().isEmpty()) {
@@ -198,9 +198,45 @@ public class MainGUI extends JFrame {
             }
             //END MY CODE
         }
+        // Otherwise, search by title if the Title field is not empty
+        else if (!titleField.getText().trim().isEmpty()) {
+            String title = titleField.getText().trim();
+            String x = SessionList.findByTitle(title);
+
+            if (!x.isEmpty()) {
+                outputArea.setText(x);
+            }
+            else {
+                outputArea.setText("No sessions found with title: " + title);
+            }
+        }
+        // Otherwise, search by date if the Date field is not empty
+        else if (!dateField.getText().trim().isEmpty()) {
+            String date = dateField.getText().trim();
+            String x = SessionList.findByDate(date);
+
+            if (!x.isEmpty()) {
+                outputArea.setText(x);
+            }
+            else {
+                outputArea.setText("No sessions found on date: " + date);
+            }
+        }
+        // Otherwise, search by location if the Location field is not empty
+        else if (!locationField.getText().trim().isEmpty()) {
+            String location = locationField.getText().trim();
+            String x = SessionList.findByLocation(location);
+
+            if (!x.isEmpty()) {
+                outputArea.setText(x);
+            }
+            else {
+                outputArea.setText("No sessions found at location: " + location);
+            }
+        }
         // Nothing entered
         else {
-            outputArea.setText("Please enter a Session ID or Mentor name.");
+            outputArea.setText("Please enter a Session ID, Mentor, Title, Date, or Location.");
         }
     }
 
@@ -233,10 +269,12 @@ public class MainGUI extends JFrame {
             outputArea.setText("Session not found.");
         }
         else if (SessionList.registerById(id)) {
-            outputArea.setText("Participant registered.");
+            outputArea.setText("Participant registered.\nParticipants: "
+                    + x.participants + "/" + x.maxParticipants);
         }
         else {
-            outputArea.setText("Session is full.");
+            outputArea.setText("Session is full.\nParticipants: "
+                    + x.participants + "/" + x.maxParticipants);
         }
         //END MY CODE
     }

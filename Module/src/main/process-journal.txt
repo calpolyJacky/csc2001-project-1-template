@@ -1,0 +1,8 @@
+Thursday Sept 17
+Jacky created Session.java and all contents inside of it.
+
+Andre also wrote SessionList and all content inside of it aswell as integrating it into Main GUI.
+
+Friday Sept 18
+Jacky added participant count to registration so now it shows the current count when you click register
+Add search support for title, date and location.

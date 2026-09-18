@@ -97,6 +97,66 @@ public class SessionList
         return findByMentor(start, y);
     }
 
+    private static String findByTitle(Node x, String y)
+    {
+        if (x == null)
+        {
+            return "";
+        }
+
+        if (x.first.title.equals(y))
+        {
+            return x.first + "\n\n" + findByTitle(x.rest, y);
+        }
+
+        return findByTitle(x.rest, y);
+    }
+
+    public static String findByTitle(String y)
+    {
+        return findByTitle(start, y);
+    }
+
+    private static String findByDate(Node x, String y)
+    {
+        if (x == null)
+        {
+            return "";
+        }
+
+        if (x.first.date.equals(y))
+        {
+            return x.first + "\n\n" + findByDate(x.rest, y);
+        }
+
+        return findByDate(x.rest, y);
+    }
+
+    public static String findByDate(String y)
+    {
+        return findByDate(start, y);
+    }
+
+    private static String findByLocation(Node x, String y)
+    {
+        if (x == null)
+        {
+            return "";
+        }
+
+        if (x.first.location.equals(y))
+        {
+            return x.first + "\n\n" + findByLocation(x.rest, y);
+        }
+
+        return findByLocation(x.rest, y);
+    }
+
+    public static String findByLocation(String y)
+    {
+        return findByLocation(start, y);
+    }
+
     private static Node removeById(Node x, int y)
     {
         if (x == null)
