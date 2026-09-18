@@ -108,9 +108,19 @@ public class MainGUI extends JFrame {
             // TO DO: construct a session object, insert it into
             // the list of sessions
 
-            outputArea.setText("Session Added Successfully\n");
-            // Clear the input fields
-            clearFields();
+            //START MY CODE
+            Session x = new Session(id, title, mentor, date, location, maxParticipants);
+
+            if (SessionList.addSession(x)) {
+                outputArea.setText("Session Added Successfully\n");
+                // Clear the input fields
+                clearFields();
+            }
+            else {
+                outputArea.setText("A session with that ID already exists.");
+            }
+            //END MY CODE
+
         }
         catch(Exception e) {
             outputArea.setText("Invalid input");
@@ -119,7 +129,17 @@ public class MainGUI extends JFrame {
 
     // display all sessions in the output area
     private void displaySessions() {
-        outputArea.setText("");
+        //START MY CODE
+        String x = SessionList.displayAll();
+
+        if (x.isEmpty()) {
+            outputArea.setText("No sessions.");
+        }
+
+        else {
+            outputArea.setText(x);
+        }
+        //END MY CODE
 
         // iterate over sessions; display each one
         // to the output window, using the `append`
@@ -128,7 +148,7 @@ public class MainGUI extends JFrame {
         // between each one, print a separator line,
         // as e.g.
 
-        outputArea.append("\n--------------------\n");
+        //outputArea.append("\n--------------------\n");
     }
 
     // search by ID if presesnt, mentor otherwise, display results
@@ -143,6 +163,17 @@ public class MainGUI extends JFrame {
             else
                 outputArea.setText("Session not found.");
              */
+            //START MY CODE
+            Session x = SessionList.findById(id);
+
+            if (x != null) {
+                outputArea.setText(x.toString());
+            }
+            else {
+                outputArea.setText("Session not found.");
+            }
+            //END MY CODE
+
         }
         // Otherwise, search by mentor if the Mentor field is not empty
         else if (!mentorField.getText().trim().isEmpty()) {
@@ -156,6 +187,16 @@ public class MainGUI extends JFrame {
             else
                 outputArea.setText("No session found for mentor: " + mentor);
              */
+            //START MY CODE
+            String x = SessionList.findByMentor(mentor);
+
+            if (!x.isEmpty()) {
+                outputArea.setText(x);
+            }
+            else {
+                outputArea.setText("No sessions found for mentor: " + mentor);
+            }
+            //END MY CODE
         }
         // Nothing entered
         else {
@@ -169,6 +210,14 @@ public class MainGUI extends JFrame {
         // remove the session, print an error to the outputArea
         // if it's not found
         // ... code here ...
+        //START MY CODE
+        if (SessionList.removeById(id)) {
+            outputArea.setText("Session removed.");
+        }
+        else {
+            outputArea.setText("Session not found.");
+        }
+        //END MY CODE
     }
 
     // add one to the count of the specified session.
@@ -177,6 +226,19 @@ public class MainGUI extends JFrame {
         int id = Integer.parseInt(idField.getText());
         // increment participants field of session,
         // print success or failure message.
+        //START MY CODE
+        Session x = SessionList.findById(id);
+
+        if (x == null) {
+            outputArea.setText("Session not found.");
+        }
+        else if (SessionList.registerById(id)) {
+            outputArea.setText("Participant registered.");
+        }
+        else {
+            outputArea.setText("Session is full.");
+        }
+        //END MY CODE
     }
 
     public static void main(String[] args) {
