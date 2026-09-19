@@ -6,3 +6,6 @@ Andre also wrote SessionList and all content inside of it aswell as integrating 
 Friday Sept 18
 Jacky added participant count to registration so now it shows the current count when you click register
 Add search support for title, date and location.
+
+6pm Jacky added tests for helper functions inside of SessionList and Session.java. 2 seperate files for testing each
+individually.
